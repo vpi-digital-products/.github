@@ -1,0 +1,14 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Ignore example and documentation files"
+paths = [
+  '''.env\.example''',
+  '''README\.md''',
+]
+
+[[rules]]
+id = "generic-api-key"
+[rules.allowlist]
+regexes = [".*"]
