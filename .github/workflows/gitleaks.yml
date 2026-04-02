@@ -12,13 +12,21 @@ jobs:
       contents: read
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout target repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Checkout gitleaks config
+        uses: actions/checkout@v4
+        with:
+          repository: vpi-digital-products/.github
+          path: .gitleaks-config
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2.3.9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_ORG_LICENSE_KEY }}
-          GITLEAKS_CONFIG: ${{ github.workspace }}/.gitleaks-config/.gitleaks.toml
+          GITLEAKS_CONFIG: .gitleaks-config/.gitleaks.toml
